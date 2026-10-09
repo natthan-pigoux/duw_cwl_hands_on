@@ -54,7 +54,7 @@ pixi run cwltool --outdir=/tmp/cwl_output examples/ctao/datapipe/process_dl0_dl1
 
 **LHCb Simulation Example**
 
-The [LHCb Run 3 simulation workgraph](examples/lhcb/simulation/minbias_2025_mc.cwl) needs an x86_64 EL9 machine with CVMFS. Use the `cwltool` provided by LbEnv:
+The [LHCb Run 3 simulation workgraph](examples/lhcb/simulation/minbias_2025_mc.cwl) runs on lxplus, using the `cwltool` provided by LbEnv:
 ```bash
 source /cvmfs/lhcb.cern.ch/lib/LbEnv
 cwltool --outdir=/tmp/cwl_output examples/lhcb/simulation/minbias_2025_mc.cwl examples/lhcb/simulation/inputs.yaml

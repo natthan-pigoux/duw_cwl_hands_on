@@ -72,7 +72,7 @@ To run in a few minutes, the example deviates from the real request:
 
 ## Running
 
-Needs an x86_64 EL9 machine with CVMFS (e.g. lxplus, or `lblhcbpr20`):
+Run it on lxplus:
 
 ```bash
 source /cvmfs/lhcb.cern.ch/lib/LbEnv
