@@ -1,4 +1,5 @@
 """Generate DL1 files and create the CWL input file."""
+
 import subprocess as sp
 import tempfile
 from pathlib import Path
@@ -13,9 +14,9 @@ app = typer.Typer()
 
 @app.command()
 def main(
-    dataset: str ="gamma_prod5.simtel.zst", 
-    output_filename: str = "merged.dl1.h5", 
-    nb_obs: int = 2, 
+    dataset: str = "gamma_prod5.simtel.zst",
+    output_filename: str = "merged.dl1.h5",
+    nb_obs: int = 2,
     input_path: str = typer.Option(
         default=None,
         help="CWL input file path.",
@@ -51,6 +52,7 @@ def main(
     with inputs_path.open("w") as f:
         yaml.dump(inputs, f)
     print(f"Input file created at {inputs_path}")
+
 
 if "__main__" == __name__:
     app()

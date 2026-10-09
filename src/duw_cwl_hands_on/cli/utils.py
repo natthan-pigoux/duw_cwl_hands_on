@@ -1,4 +1,5 @@
 """Shared functions."""
+
 from ctapipe.utils import get_dataset_path
 
 

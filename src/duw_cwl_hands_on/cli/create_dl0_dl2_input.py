@@ -1,4 +1,5 @@
 """CLI to download dataset from CTAO Minio and create CWL input file."""
+
 import tempfile
 from pathlib import Path
 
@@ -11,7 +12,8 @@ app = typer.Typer()
 
 
 @app.command()
-def main(input_path: str = typer.Option(
+def main(
+    input_path: str = typer.Option(
         default=None,
         help="CWL input file path.",
     ),

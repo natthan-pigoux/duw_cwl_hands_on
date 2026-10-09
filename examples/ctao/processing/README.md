@@ -1,8 +1,8 @@
 # CTAO DL0 to DL2 Processing as CWL
 
-A simplified workflow to process DL0/Event files from an Observation Block to DL1 and DL2 using the ``ctapipe-process`` tool. 
+A simplified workflow to process DL0/Event files from an Observation Block to DL1 and DL2 using the ``ctapipe-process`` tool.
 
-The input data used for this example is downloaded from public test dataset from CTAO Minio. 
+The input data used for this example is downloaded from public test dataset from CTAO Minio.
 
 
 The [CTAO DL0 to DL2 workflow example](examples/ctao/processing/workflow_dl0_to_dl2.cwl) needs an input data file which can be downloaded using the pixi task:
