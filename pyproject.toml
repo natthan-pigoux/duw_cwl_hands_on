@@ -1,9 +1,12 @@
 [project]
 authors = [{name = "natthan-pigoux", email = "natthan-pigoux@users.noreply.github.com"}]
-dependencies = ["cwltool", "ctapipe==0.30.0", "eventio~=2.1"]
+dependencies = ["cwltool", "ctapipe==0.30.0", "eventio~=2.1", "typer"]
 name = "duw_cwl_hands_on"
 requires-python = ">= 3.12"
 version = "0.1.0"
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov", "pytest-requirements"]
 
 [build-system]
 requires = ["setuptools>=65", "setuptools_scm[toml]>=8"]
@@ -17,8 +20,9 @@ platforms = ["linux-64"]
 duw_cwl_hands_on = { path = ".", editable = true }
 
 [tool.pixi.tasks]
-download-dataset = { cmd = "python src/duw_cwl_hands_on/get_dataset.py", description = "Get a CTAO Simulation dataset."}
-create-multiple-dl1 = { cmd = "python src/duw_cwl_hands_on/create_multiple_dl1.py", description = "Create multiple DL1 input files."}
+create-dl0-dl2-input = { cmd = "create-dl0-dl2-input", description = "Get a CTAO Simulation dataset."}
+create-multi-dl1-input = { cmd = "create-multi-dl1-input", description = "Create multiple DL1 input files."}
 
-[tool.pixi.environments]
-default = { solve-group = "default" }
+[project.scripts]
+create-dl0-dl2-input = "duw_cwl_hands_on.cli.create_dl0_dl2_input:app"
+create-multi-dl1-input = "duw_cwl_hands_on.cli.create_multiple_dl1_inputs:app"

@@ -1,21 +1,37 @@
+"""Generate DL1 files and create the CWL input file."""
 import subprocess as sp
 import tempfile
 from pathlib import Path
+
+import typer
 import yaml
-from ctapipe.utils import get_dataset_path
+
+from duw_cwl_hands_on.cli.utils import download_dataset
+
+app = typer.Typer()
 
 
-def create_multiple_dl1():
-    input_file = get_dataset_path("gamma_prod5.simtel.zst")
-        # create to dl1 files with different obs_ids, merge checks for
-        # same subarray and different obs-ids, but we do not have two test files
-        # that are small and similar
+@app.command()
+def main(
+    dataset: str ="gamma_prod5.simtel.zst", 
+    output_filename: str = "merged.dl1.h5", 
+    nb_obs: int = 2, 
+    input_path: str = typer.Option(
+        default=None,
+        help="CWL input file path.",
+    ),
+):
+    """Generate DL1 files and create the CWL input file."""
+    input_file = download_dataset(dataset)
+    # create to dl1 files with different obs_ids, merge checks for
+    # same subarray and different obs-ids, but we do not have two test files
+    # that are small and similar
     inputs = {
         "input_files": [],
-        "output_filename": "merged.dl1.h5",
+        "output_filename": output_filename,
     }
     tmp_path = tempfile.mkdtemp()
-    for obs_id in (1, 2):
+    for obs_id in (i for i in range(nb_obs)):
         output_path = f"{tmp_path}/gamma_{obs_id}.dl1_img.h5"
         print(f"Creating data at {output_path}")
         sp.run(
@@ -37,4 +53,4 @@ def create_multiple_dl1():
     print(f"Input file created at {inputs_path}")
 
 if "__main__" == __name__:
-    create_multiple_dl1()
+    app()

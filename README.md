@@ -34,28 +34,4 @@ All [basic examples](examples/basic) can be executed directly.
 
 **CTAO Workflows Examples**
 
-The [CTAO DL0 to DL2 worflow example](examples/ctao/datapipe/workflow_dl0_to_dl2.cwl) needs an input data file which can be downloaded using the pixi task:
-```bash
-pixi run download-dataset
-```
-Then you must adapt the [input_dl0_dl2.yaml](examples/ctao/datapipe/input_dl0_dl2.yaml) and run the workflow:
-```bash
-pixi run cwltool --outdir=/tmp/cwl_output examples/ctao/datapipe/workflow_dl0_to_dl2.cwl examples/ctao/datapipe/input_dl0_dl2.yaml
-```
-
-The [DL0 to DL1 multiple](examples/ctao/datapipe/process_dl0_dl1_multiple.cwl) needs first to generate multiple input files:
-```bash
-pixi run create-multiple-dl1 
-```
-Once the input file generated, simply run:
-```bash
-pixi run cwltool --outdir=/tmp/cwl_output examples/ctao/datapipe/process_dl0_dl1_multiple.cwl input_mutliple.yaml
-```
-
-**LHCb Simulation Example**
-
-The [LHCb Run 3 simulation workgraph](examples/lhcb/simulation/minbias_2025_mc.cwl) runs on lxplus, using the `cwltool` provided by LbEnv:
-```bash
-source /cvmfs/lhcb.cern.ch/lib/LbEnv
-cwltool --outdir=/tmp/cwl_output examples/lhcb/simulation/minbias_2025_mc.cwl examples/lhcb/simulation/inputs.yaml
-```
+See [README](examples/ctao/processing/README.md)
