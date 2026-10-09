@@ -8,8 +8,8 @@ doc: |-
 
   Generates and simulates minimum bias events (event type 30000000) with
   Gauss (Sim10h). There is no input data: each job generates its own
-  events, with random seeds derived from the production and job IDs in
-  the output prefix.
+  events from the seed it is given (one seed per job, issued by the
+  workgraph's Seeds feeder).
 
   To keep the example fast, the configuration differs from production in
   two ways:
@@ -32,6 +32,11 @@ inputs:
       J=prod-job-id)'
     default: '00012345_00006789'
     type: string
+  seed:
+    doc: The seed for this job, as issued by the Seeds feeder (one per job)
+    type:
+      type: array
+      items: [File, string]
   n-of-events:
     doc: Number of events to generate
     default: 2
@@ -45,6 +50,9 @@ steps:
         source: output-prefix
         valueFrom: $(self)_1
       n-of-events: n-of-events
+      seed:
+        source: seed
+        valueFrom: $(self[0])
       step-index:
         default: 1
       output-data-glob:
@@ -95,7 +103,7 @@ steps:
     out: [output-data, others]
 
 outputs:
-  SIM:
+  sim-files:
     outputSource: Sim10h_2025_W43_45_MagDown_nu1/output-data
     type: File[]
   others:

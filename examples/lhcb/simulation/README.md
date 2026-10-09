@@ -27,21 +27,33 @@ tools/
 ```
 
 ```
-         ┌──────────┐  SIM  ┌───────────────────────┐ HLT1.DST ┌──────────┐
-(none) → │ 1. Gauss │ ────▶ │ 2. Boole → Moore HLT1 │ ───────▶ │ 3. Merge │ → HLT1.DST
-         └──────────┘       └───────────────────────┘          └──────────┘
+        ┌──────────────┐ sim-files ┌───────────────────────┐ reco-files ┌──────────┐
+seeds → │ MCSimulation │ ────────▶ │ MCReconstruction      │ ─────────▶ │ MCMerge  │ → datasets
+        │ Gauss        │           │ Boole → Moore HLT1    │            │ LHCb     │
+        └──────────────┘           └───────────────────────┘            └──────────┘
 ```
 
-- **Workgraph** — the DAG of transformations. Unlike the Analysis
-  Production example it has no `input-data`/`dirac:Feeder`: the first
-  transformation creates the events.
-- **Transformations** — one file per transformation. Transformation 2 is
-  a two-step sub-workflow: the DIGI file is intermediate and stays inside
-  the job, as it does in production.
+The `dirac:` hints follow DX-ADR-007 and the draft `dirac-1.0` hint
+schema ([DIRACGrid/diracx#1042](https://github.com/DIRACGrid/diracx/pull/1042)):
+
+- **Workgraph** (`dirac:Workgraph`) — the DAG of transformations, with
+  `schema_version`, its VO `type` (`MCSimulation`) and the
+  `output_sandbox` patterns. There is no input data: the `events` input
+  carries a `dirac:Feeder` naming the **Seeds** feeder, which issues one
+  seed per MCSimulation job.
+- **Transformations** (`dirac:Transformation` on each step) — the packer
+  that groups inputs into jobs (one seed per job, then groups of 3 and 8
+  files) and the finalizing checks. The run bodies under
+  `transformations/` are plain CWL. MCReconstruction's is a two-step
+  sub-workflow: the DIGI file never leaves the job.
+- **Outputs** — only the merged files (`datasets`) are declared. The
+  SIM and reconstructed files are consumed but not declared, which makes
+  them intermediates. Logs and summaries are not dataflow: they go to the
+  output sandbox through the `output_sandbox` patterns.
 - **CommandLineTool** — `lb-ap-run-app` runs one LHCb application from a
   ProdConf JSON. The tool fills in the output prefix, number of events,
-  input files and, for Gauss, the random seeds (derived from the
-  production and job IDs in `output-prefix`).
+  input files and, for Gauss, the seed (used as the job number from which
+  lb-prod-run derives the run number and first event number).
 
 ## Differences from production
 
@@ -69,13 +81,21 @@ cwltool --outdir /tmp/lhcb_mc_output \
     examples/lhcb/simulation/inputs.yaml
 ```
 
-`LbEnv` provides both `cwltool` and `lb-ap-run-app`.
+`LbEnv` provides both `cwltool` and `lb-ap-run-app`. `inputs.yaml`
+supplies the seed by hand, since there is no feeder locally. Seeds are
+positive integers.
+
+Because logs go to the output sandbox rather than through the dataflow,
+`cwltool` only copies the merged DST to the output directory. To keep
+the logs of every step when running locally, add `--leave-tmpdir`, or run
+a single transformation's file directly: its run body still exposes them
+as the `others` output.
 
 ## Things to try
 
 - Change `n-of-events` in `inputs.yaml`.
-- Change the job ID in `output-prefix` and check in the Gauss log that
-  the run number and seeds change.
-- Run several Gauss jobs with `scatter` over a list of output prefixes
-  and feed all the SIM files to the merge — this is what the
-  transformations do on the grid.
+- Change the seed in `inputs.yaml` and check in the Gauss log that the
+  run number and seeds change.
+- Run several Gauss jobs with `scatter` over a list of seeds and feed all
+  the SIM files to the merge — this is what the transformations do on the
+  grid, with the packers deciding the grouping.

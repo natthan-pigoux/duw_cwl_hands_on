@@ -91,7 +91,7 @@ steps:
     out: [output-data, others]
 
 outputs:
-  HLT1_DST:
+  merged:
     outputSource: Merge_HLT1_DST/output-data
     type: File[]
   others:

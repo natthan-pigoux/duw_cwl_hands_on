@@ -35,6 +35,10 @@ inputs:
     doc: Number of events to process (-1 for all events in the input).
     type: int
     default: -1
+  seed:
+    doc: Simulation seed issued by the Seeds feeder (a positive integer).
+      Gauss derives its run number and first event number from it.
+    type: string?
   input-data:
     doc: Input data files, either as staged Files or as URLs. Omitted for
       steps that generate events from scratch (Gauss).
@@ -78,11 +82,13 @@ requirements:
             "_" + prefix + ".xml";
           conf["input"]["n_of_events"] = inputs["n-of-events"];
           if (conf["input"]["seeds"]) {
-            // Gauss derives its random seeds (run number and first event
-            // number) from the production and job IDs in the prefix.
-            var ids = prefix.split("_");
-            conf["input"]["seeds"]["production_id"] = parseInt(ids[0], 10);
-            conf["input"]["seeds"]["prod_job_id"] = parseInt(ids[1], 10);
+            // lb-prod-run derives the Gauss run number and first event
+            // number from a production ID and a job number: take the
+            // production ID from the prefix and use the seed as the job
+            // number.
+            conf["input"]["seeds"]["production_id"] =
+              parseInt(prefix.split("_")[0], 10);
+            conf["input"]["seeds"]["prod_job_id"] = parseInt(inputs["seed"], 10);
           }
           if (inputs["input-data"]) {
             conf["input"]["files"] = inputs["input-data"].map(function (f) {

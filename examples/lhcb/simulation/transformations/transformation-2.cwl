@@ -142,7 +142,7 @@ steps:
     out: [output-data, others]
 
 outputs:
-  HLT1_DST:
+  reco-files:
     outputSource: HLT1_2025_W43_45/output-data
     type: File[]
   others:
