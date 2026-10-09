@@ -1,6 +1,6 @@
 [project]
 authors = [{name = "natthan-pigoux", email = "natthan-pigoux@users.noreply.github.com"}]
-dependencies = ["cwltool", "ctapipe~=0.32.0", "eventio~=2.1"]
+dependencies = ["cwltool", "ctapipe==0.30.0", "eventio~=2.1"]
 name = "duw_cwl_hands_on"
 requires-python = ">= 3.12"
 version = "0.1.0"

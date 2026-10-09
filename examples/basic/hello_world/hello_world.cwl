@@ -11,7 +11,3 @@ inputs:
 outputs: []
 
 baseCommand: echo
-
-hints:
-  - class: dirac:Scheduling
-    sites: CTAO.CI.de

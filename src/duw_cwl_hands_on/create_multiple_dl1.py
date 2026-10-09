@@ -14,10 +14,10 @@ def create_multiple_dl1():
         "input_files": [],
         "output_filename": "merged.dl1.h5",
     }
-    
+    tmp_path = tempfile.mkdtemp()
     for obs_id in (1, 2):
-        tmp_path = tempfile.mkdtemp()
         output_path = f"{tmp_path}/gamma_{obs_id}.dl1_img.h5"
+        print(f"Creating data at {output_path}")
         sp.run(
             [
                 "ctapipe-process",
@@ -31,9 +31,10 @@ def create_multiple_dl1():
         )
         inputs["input_files"].append({"class": "File", "path": str(output_path)})
 
-        inputs_path = Path("input_mutliple.yaml")
-        with inputs_path.open("w") as f:
-            yaml.dump(inputs, f)
+    inputs_path = Path(tmp_path) / "input_mutliple.yaml"
+    with inputs_path.open("w") as f:
+        yaml.dump(inputs, f)
+    print(f"Input file created at {inputs_path}")
 
 if "__main__" == __name__:
     create_multiple_dl1()

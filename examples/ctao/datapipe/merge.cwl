@@ -54,4 +54,4 @@ baseCommand:
 
 hints:
   DockerRequirement:
-    dockerPull: harbor.cta-observatory.org/dpps/datapipe:v0.3.3-rc1-2-gb8d0cdd
+    dockerPull: harbor.cta-observatory.org/dpps/datapipe:v0.3.3
