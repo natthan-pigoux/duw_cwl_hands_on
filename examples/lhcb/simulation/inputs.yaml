@@ -1,0 +1,4 @@
+# Locally there is no Seeds feeder: supply the seed for the one job by hand.
+events: ['1']
+output-prefix: '00012345_00006789'
+n-of-events: 2
