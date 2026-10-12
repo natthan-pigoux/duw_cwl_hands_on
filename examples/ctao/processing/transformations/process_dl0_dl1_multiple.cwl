@@ -5,7 +5,7 @@
 cwlVersion: v1.2
 class: Workflow
 doc: |
-  Process multiple dl0 files using process_dl0_dl1 and then merge
+  Process multiple DL0 files using process_dl0_dl1 and then merge
   the individual result files into one common output file using
   the merge tool.
   This is useful for processing simulation files in DIRAC as processing
@@ -36,7 +36,7 @@ steps:
     in:
       input_file: input_files
     scatter: input_file
-    run: ./internal/output_names.cwl
+    run: ../internal/output_names.cwl
     out:
     - output_filename
     - provenance_log_filename
@@ -44,7 +44,7 @@ steps:
     in:
       input_files: process_dl0_to_dl1/dl1
       output_filename: output_filename
-    run: merge.cwl
+    run: ../tools/merge.cwl
     out:
     - merged_output
     - provenance_log
@@ -59,7 +59,7 @@ steps:
     - dl1_filename
     - provenance_log_filename
     scatterMethod: dotproduct
-    run: process_dl0_dl1.cwl
+    run: ../tools/process_dl0_dl1.cwl
     out:
     - dl1
     - provenance_log
