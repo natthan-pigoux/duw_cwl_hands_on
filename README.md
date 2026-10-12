@@ -24,7 +24,7 @@ with [pixi](https://pixi.prefix.dev/latest/installation/):
 pixi run cwltool examples/basic/hello_world/hello_world.cwl
 ```
 
-or direclty calling `cwltool`:
+or directly calling `cwltool`:
 
 ```bash
 cwltool examples/basic/hello_world/hello_world.cwl
@@ -81,7 +81,7 @@ requirements:
   ScatterFeatureRequirement: {}
 ```
 
-The scatter feature is very close to the DIRAC `Transformation System` logic.
+The `scatter` feature provides functions similar to those of the DIRAC Transformation System however it cannot be used to describe or orchestrate transformations in a workgraph, though it can be used *inside* a transformation.
 
 ## Experiments Examples
 
