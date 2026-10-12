@@ -6,7 +6,9 @@ cwlVersion: v1.2
 class: Workflow
 label: Process DL0 to DL2
 doc: |
-  Process an input file to from DL0 to separate DL1 and DL2 outputs.
+  A simplified workflow to process a DL0 Event file
+  from an Observation Block using `ctapipe`
+  into DL1 and DL2.
 
 requirements:
   InlineJavascriptRequirement: {}
@@ -74,7 +76,7 @@ steps:
       dl1_filename:
         valueFrom: $(inputs.dl0.basename.replace(/\.simtel\.zst$/, '.dl1.h5'))
       processing_config: processing_config
-    run: process_dl0_dl1.cwl
+    run: ../tools/process_dl0_dl1.cwl
     out:
     - dl1
     - provenance_log
@@ -87,7 +89,7 @@ steps:
       dl2_filename:
         valueFrom: $(inputs.dl1.basename.replace(/\.dl1.h5$/, '.dl2.h5'))
       processing_config: processing_config
-    run: process_dl1_dl2.cwl
+    run: ../tools/process_dl1_dl2.cwl
     out:
     - dl2
     - provenance_log
