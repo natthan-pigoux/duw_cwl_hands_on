@@ -5,7 +5,7 @@ label: "Benchmark Data Generation Tool"
 inputs:
   script_data_gen:
     type: File[]
-    default: random_data_gen.py
+    default: [{class: File, location: random_data_gen.py}]
     inputBinding:
       position: 1
 
@@ -26,4 +26,4 @@ outputs:
     outputBinding:
       glob: "*.log"
 
-baseCommand: ["python"]
+baseCommand: ["python3"]

@@ -10,13 +10,13 @@ doc: >
 inputs:
   script_data_gen:
     type: File[]
-    default: random_data_gen.py
+    default: [{class: File, location: random_data_gen.py}]
   output_file_name:
     type: string
     default: data_gen.txt
   script_gauss:
     type: File[]
-    default: gaussian_fit.py
+    default: [{class: File, location: gaussian_fit.py}]
 
 outputs:
   fit-data:

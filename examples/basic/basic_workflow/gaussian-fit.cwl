@@ -5,7 +5,7 @@ label: "Gaussian Fit Tool"
 inputs:
   script_gauss:
     type: File[]
-    default: gaussian_fit.py
+    default: [{class: File, location: gaussian_fit.py}]
     inputBinding:
       position: 1
   data:
@@ -23,4 +23,4 @@ outputs:
     outputBinding:
       glob: ["fit.log"]
 
-baseCommand: ["python"]
+baseCommand: ["python3"]
