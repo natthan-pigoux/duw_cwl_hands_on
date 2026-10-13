@@ -5,3 +5,6 @@
 # python
 *.egg-info
 *.pyc
+
+# ctapipe provenance written by the CTAO input helpers
+*.provenance.log
