@@ -10,6 +10,9 @@ doc: |
   from an Observation Block using `ctapipe`
   into DL1 and DL2.
 
+$namespaces:
+  dirac: https://diracgrid.org/cwl#
+
 requirements:
   InlineJavascriptRequirement: {}
   StepInputExpressionRequirement: {}
