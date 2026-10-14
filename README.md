@@ -93,3 +93,7 @@ The `scatter` feature provides functions similar to those of the DIRAC Transform
 **LHCb Examples**
 
 [examples/lhcb/simulation](examples/lhcb/simulation/README.md) contains an LHCb Run 3 minimum bias simulation workgraph (Gauss → Boole → HLT1 → Merge) based on a real MC request. It needs no input data or credentials, only CVMFS.
+
+**JUNO Examples**
+
+[examples/juno/simulation](examples/juno/simulation/README.md) contains a JUNO simulation workgraph (detsim → elecsim_rec), the `[Chain]` example of the JUNO production system translated to CWL, and a single CommandLineTool that runs any JUNO offline step. It needs no input data or credentials, only CVMFS.

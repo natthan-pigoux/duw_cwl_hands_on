@@ -1,0 +1,3 @@
+# Locally there is no Seeds feeder: supply the seed for the one job by hand.
+events: ['42']
+n-of-events: 2
